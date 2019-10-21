@@ -5,8 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .div1{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+        .div2{
+            position: absolute;
+            top: 300px;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: blue;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>123</h1>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <script>
+        var box1 = document.getElementsByClassName("div1")[0]; //获取元素
+        var box2 = document.getElementsByClassName("div2")[0]; //获取元素
+        var x, y; //鼠标相对与div左边，上边的偏移
+        var box1IsDrop = false; //移动状态的判断鼠标按下才能移动
+        var box2IsDrop = false; //移动状态的判断鼠标按下才能移动
+        box1.onmousedown = function(e) {
+            var e = e || window.event; //要用event这个对象来获取鼠标的位置
+            x = e.clientX - box1.offsetLeft;
+            y = e.clientY - box1.offsetTop;
+            box1IsDrop = true; //设为true表示可以移动
+
+            document.onmousemove = function(e) {
+                //是否为可移动状态                　　　　　　　　　　　 　　　　　　　
+                if(box1IsDrop) {
+                    var e = e || window.event;
+                    var moveX = e.clientX - x; //得到距离左边移动距离                    　　
+                    var moveY = e.clientY - y; //得到距离上边移动距离
+                    //可移动最大距离
+                    // var maxX = document.documentElement.clientWidth - box1.offsetWidth;
+                    // var maxY = document.documentElement.clientHeight - box1.offsetHeight;
+                    // moveY=Math.min(maxY, Math.max(0,moveY));
+                    box1.style.left = moveX + "px";
+                    box1.style.top = moveY + "px";
+                } else {
+                    return null;
+                }
+
+            };
+            document.onmouseup = function() {
+                box1IsDrop = false; //设置为false不可移动
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        };
+        box2.onmousedown = function(e) {
+            var e = e || window.event; //要用event这个对象来获取鼠标的位置
+            x = e.clientX - box2.offsetLeft;
+            y = e.clientY - box2.offsetTop;
+            box2IsDrop = true; //设为true表示可以移动
+
+            document.onmousemove = function(e) {
+                //是否为可移动状态                　　　　　　　　　　　 　　　　　　　
+                if(box2IsDrop) {
+                    var e = e || window.event;
+                    var moveX = e.clientX - x; //得到距离左边移动距离                    　　
+                    var moveY = e.clientY - y; //得到距离上边移动距离
+                    //可移动最大距离
+                    // var maxX = document.documentElement.clientWidth - box2.offsetWidth;
+                    // var maxY = document.documentElement.clientHeight - box2.offsetHeight;
+                    // moveY=Math.min(maxY, Math.max(0,moveY));
+                    box2.style.left = moveX + "px";
+                    box2.style.top = moveY + "px";
+                } else {
+                    return null;
+                }
+
+            };
+            document.onmouseup = function() {
+                box2IsDrop = false; //设置为false不可移动
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        };
+
+
+
+
+
+
+    </script>
 </body>
 </html>
